@@ -9,8 +9,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Optional;
-
 
 @Service
 public class ClientService {
@@ -43,5 +41,18 @@ public class ClientService {
         return new ClientDTO(client);
     }
 
+    @Transactional
+    public ClientDTO update(ClientDTO dto , Long id){
+        Client client = repository.getReferenceById(id);
+
+        client.setName(dto.getName());
+        client.setChildren(dto.getChildren());
+        client.setCpf(dto.getCpf());
+        client.setIncome(dto.getIncome());
+        client.setBirthDate(dto.getBirthDate());
+
+        repository.save(client);
+        return new ClientDTO(client);
+    }
 
 }

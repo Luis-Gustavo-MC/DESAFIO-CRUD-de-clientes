@@ -26,5 +26,10 @@ public class ClientController {
     public void insert(@RequestBody ClientDTO dto){
         dto = service.insert(dto);
     }
+    @PutMapping(value = "/{id}")
+    public ClientDTO update(@RequestBody ClientDTO dto , @PathVariable Long id){
+        dto = service.update(dto, id);
+        return dto;
+    }
 
 }
