@@ -19,13 +19,29 @@ public class ClientService {
 
     @Transactional(readOnly = true)
     public ClientDTO findById(Long id){
-        Optional<Client> client =repository.findById(id);
-        ClientDTO dto = new ClientDTO(client.orElse(null));
-        return dto;
+        Client client = repository.findById(id).orElseThrow(
+                ()->new ResourceNotFoundException("Recurso não encontrado"));
+        return new ClientDTO(client);
     }
     @Transactional(readOnly = true)
     public Page<ClientDTO> findAll(Pageable pageable){
         Page<Client> clients =  repository.findAll(pageable);
         return clients.map(ClientDTO::new);
     }
+    @Transactional
+    public ClientDTO insert(ClientDTO dto){
+        Client client = new Client();
+
+        client.setName(dto.getName());
+        client.setChildren(dto.getChildren());
+        client.setCpf(dto.getCpf());
+        client.setIncome(dto.getIncome());
+        client.setBirthDate(dto.getBirthDate());
+
+        client = repository.save(client);
+
+        return new ClientDTO(client);
+    }
+
+
 }
