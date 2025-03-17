@@ -26,6 +26,7 @@ public class ClientService {
         Page<Client> clients =  repository.findAll(pageable);
         return clients.map(ClientDTO::new);
     }
+
     @Transactional
     public ClientDTO insert(ClientDTO dto){
         Client client = new Client();

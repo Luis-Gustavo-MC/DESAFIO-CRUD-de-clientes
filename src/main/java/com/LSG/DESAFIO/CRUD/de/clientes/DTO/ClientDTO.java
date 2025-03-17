@@ -7,7 +7,8 @@ import jakarta.validation.constraints.PastOrPresent;
 import java.time.LocalDate;
 
 public class ClientDTO {
-    @NotBlank()
+
+    @NotBlank(message = "Tem que ter alguma coisa")
     private String name;
     private String cpf;
     private Double income;
@@ -25,7 +26,6 @@ public class ClientDTO {
 
     public ClientDTO() {
     }
-
     public String getName() {
         return name;
     }
