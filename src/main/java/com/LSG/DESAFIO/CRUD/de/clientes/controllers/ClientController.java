@@ -2,6 +2,7 @@ package com.LSG.DESAFIO.CRUD.de.clientes.controllers;
 
 import com.LSG.DESAFIO.CRUD.de.clientes.DTO.ClientDTO;
 import com.LSG.DESAFIO.CRUD.de.clientes.services.ClientService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -20,21 +21,24 @@ public class ClientController {
     }
 
     @GetMapping()
-    public Page<ClientDTO> findAll(Pageable pageable){
+    public ResponseEntity<Page<ClientDTO>>  findAll(Pageable pageable){
         Page<ClientDTO> dto = service.findAll(pageable);
-        return dto;
+        return ResponseEntity.ok(dto);
     }
     @PostMapping()
-    public void insert(@RequestBody ClientDTO dto){
+    public ResponseEntity<ClientDTO> insert(@Valid @RequestBody ClientDTO dto){
         dto = service.insert(dto);
+        return ResponseEntity.ok(dto);
     }
+
     @PutMapping(value = "/{id}")
-    public ClientDTO update(@RequestBody ClientDTO dto , @PathVariable Long id){
+    public ResponseEntity<ClientDTO>  update(@Valid @RequestBody ClientDTO dto , @PathVariable Long id){
         dto = service.update(dto, id);
-        return dto;
+        return ResponseEntity.ok(dto) ;
     }
     @DeleteMapping(value = "/{id}")
-    public void delete(@PathVariable Long id){
+    public ResponseEntity<Void> delete(@PathVariable Long id){
         service.delete(id);
+        return ResponseEntity.noContent().build();
     }
 }
