@@ -8,6 +8,7 @@ import jakarta.validation.constraints.Size;
 import java.time.LocalDate;
 
 public class ClientDTO {
+    private Long id;
 
     @NotBlank(message = "Campo em branco" )@Size(min = 3 , max = 80, message = "Nome precisa ter entre 3 e 80 caracteres")
     private String name;
@@ -18,6 +19,7 @@ public class ClientDTO {
     private LocalDate birthDate;
 
     public ClientDTO(Client entity){
+        this.id = entity.getId();
         this.name =  entity.getName();
         this.income = entity.getIncome();
         this.cpf = entity.getCpf();
@@ -45,5 +47,9 @@ public class ClientDTO {
 
     public LocalDate getBirthDate() {
         return birthDate;
+    }
+
+    public Long getId() {
+        return id;
     }
 }
